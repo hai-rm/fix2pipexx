@@ -148,27 +148,8 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
 
     if direction == "incoming":
         print(f"INCOMING             []  <------------ {msg_map.get(35)}")
-        color_str = colors.GRAY_BACK
-    elif direction == "outgoing":
-        print(f"OUTGOING             []  {msg_map.get(35)} ------------>")
-        color_str = colors.TEAL_BACK
     else:
-        color_str = colors.GRAY
-
-    if "D" in msg_map.get(35) or "AB" in msg_map.get(35):
-        color_str = colors.BLUE
-
-    if "8" in msg_map.get(35) and "F" in msg_map.get(150):
-        color_str = colors.GREEN
-
-    if "R" in msg_map.get(35):
-        color_str = colors.ORANGE
-
-    if "S" in msg_map.get(35):
-        color_str = colors.MAGENTA
-
-    if "3" in msg_map.get(35) or "AG" in msg_map.get(35):
-        color_str = colors.RED
+        print(f"OUTGOING             []  {msg_map.get(35)} ------------>")
 
     for key, name, value in msg_fields:
         description = ""
@@ -181,7 +162,7 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
         output = "{0:6} {1:28} {2} {3}".format(
             key, name, value_str, description
         )
-        print_color(color_str, output)
+        print(output)
 
     # TESTS
     # for key, name, value in msg_fields:
@@ -212,16 +193,14 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 
 def parse_line(line, tags_map, only_fix, sort_by):
     line = line.replace("\x01", "|")
-    direction_regex = re.search("(incoming|outgoing)", line)
-    direction = direction_regex.groups()[0] if direction_regex is not None else "unknown"
-
-    result = re.search("(8=FIX.4...9=.*10=.*)", line)
+    result = re.search(".+<.+->.+,.+> (incoming|outgoing): (.*)", line)
 
     if not only_fix:
         print(line, end="")
 
     if result:
-        msg = result.groups()[0]
+        direction = result.groups()[0]
+        msg = result.groups()[1]
         parse_fix_msg(msg, tags_map, direction, sort_by)
         if only_fix:
             print("------------------------------------------------------")
