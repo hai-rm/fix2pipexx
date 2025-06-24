@@ -10,7 +10,8 @@ def parse_tags_file(tags_filename):
     tags_map = {}
     tags_file = open(tags_filename, "r")
     tags_file_content = tags_file.read()
-    result = re.search(r"enum class Tag : int \{([\s\S]*?)\};", tags_file_content)
+    result = re.search(r"enum class Tag : int \{([\s\S]*?)\};",
+                       tags_file_content)
     if result:
         for line in result.groups()[0].splitlines():
             line = line.strip()
@@ -37,7 +38,7 @@ def name_key(t):
 
 tag_value_descriptions = {
     # Side
-    54 : {
+    54: {
         "0": "None",
         "1": "Buy",
         "2": "Sell",
@@ -75,50 +76,76 @@ tag_value_descriptions = {
     },
     # OrdStatus
     39: {
-        "0" : "New",
-        "1" : "Partially filled",
-        "2" : "Filled",
-        "3" : "Done for day",
-        "4" : "Canceled",
-        "5" : "Replaced",
-        "6" : "Pending Cancel",
-        "7" : "Stopped",
-        "8" : "Rejected",
-        "9" : "Suspended",
-        "A" : "Pending New",
-        "B" : "Calculated",
-        "C" : "Expired",
-        "D" : "Accepted for bidding",
-        "E" : "Pending Replace",
+        "0": "New",
+        "1": "Partially filled",
+        "2": "Filled",
+        "3": "Done for day",
+        "4": "Canceled",
+        "5": "Replaced",
+        "6": "Pending Cancel",
+        "7": "Stopped",
+        "8": "Rejected",
+        "9": "Suspended",
+        "A": "Pending New",
+        "B": "Calculated",
+        "C": "Expired",
+        "D": "Accepted for bidding",
+        "E": "Pending Replace",
     },
     # OrdType
     40: {
-        "1" : "Market",
-        "2" : "Limit",
-        "3" : "Stop",
-        "4" : "Stop limit",
-        "D" : "Previously quoted",
+        "1": "Market",
+        "2": "Limit",
+        "3": "Stop",
+        "4": "Stop limit",
+        "D": "Previously quoted",
+        "E": "Previously indicated",
+    },
+    # TimeInForce
+    59: {
+        "0": "Day",
+        "1": "GTC - Good Till Cancel",
+        "3": "IOC - Immediate Or Cancel",
+        "6": "Good Till Date",
+    },
+    # ExecType
+    150: {
+        "0": "New",
+        "1": "Partial fill - deprecated",
+        "2": "Fill - deprecated",
+        "3": "Done For Day",
+        "4": "Canceled",
+        "5": "Replaced",
+        "6": "Pending Cancel",
+        "7": "Stopped",
+        "8": "Rejected",
+        "A": "Pending New",
+        "B": "Calculated",
+        "C": "Expired",
+        "D": "Restated",
+        "E": "Pending Replace",
+        "F": "Trade - Fill or Partial Fill"
     },
     # QuoteStatus
     297: {
-        "0" : "Accepted",
-        "1" : "Canceled for Symbol",
-        "4" : "Canceled All",
-        "5" : "Rejected",
-        "7" : "Expired",
+        "0": "Accepted",
+        "1": "Canceled for Symbol",
+        "4": "Canceled All",
+        "5": "Rejected",
+        "7": "Expired",
     },
     # QuoteCancelType
     298: {
-        "1" : "Cancel for Symbol",
-        "4" : "Cancel All Quotes",
+        "1": "Cancel for Symbol",
+        "4": "Cancel All Quotes",
     },
     # TradSesStatus
     340: {
-        "1" : "Halted",
-        "2" : "Open",
-        "3" : "Closed",
-        "4" : "Pre-Open",
-        "5" : "Pre-Close",
+        "1": "Halted",
+        "2": "Open",
+        "3": "Closed",
+        "4": "Pre-Open",
+        "5": "Pre-Close",
     },
 }
 
@@ -158,7 +185,9 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     if "D" in msg_map.get(35) or "AB" in msg_map.get(35):
         color_str = colors.BLUE
 
-    if "8" in msg_map.get(35) and "F" in msg_map.get(150):
+    if "8" in msg_map.get(35) and ("F" in msg_map.get(150)
+                                   or "1" in msg_map.get(150)
+                                   or "2" in msg_map.get(150)):
         color_str = colors.GREEN
 
     if "R" in msg_map.get(35):
@@ -176,11 +205,10 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
             value_str = str(value[0])
             description = describe_field(key, value_str)
         else:
-            value_str = '[' + ', '.join(value)  + ']'
+            value_str = '[' + ', '.join(value) + ']'
 
-        output = "{0:6} {1:28} {2} {3}".format(
-            key, name, value_str, description
-        )
+        output = "{0:6} {1:28} {2} {3}".format(key, name, value_str,
+                                               description)
         print_color(color_str, output)
 
     # TESTS
@@ -213,7 +241,8 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 def parse_line(line, tags_map, only_fix, sort_by):
     line = line.replace("\x01", "|")
     direction_regex = re.search("(incoming|outgoing)", line)
-    direction = direction_regex.groups()[0] if direction_regex is not None else "unknown"
+    direction = direction_regex.groups(
+    )[0] if direction_regex is not None else "unknown"
 
     result = re.search("(8=FIX.4...9=.*10=.*)", line)
 
@@ -233,9 +262,10 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("-t", "--tags", help="path to Tag.hpp")
-    parser.add_argument(
-        "-o", "--only-fix", action="store_true", help="only outputs formatted fix"
-    )
+    parser.add_argument("-o",
+                        "--only-fix",
+                        action="store_true",
+                        help="only outputs formatted fix")
     parser.add_argument(
         "-s",
         "--sort-by",

@@ -98,6 +98,32 @@ tag_value_descriptions = {
         "3" : "Stop",
         "4" : "Stop limit",
         "D" : "Previously quoted",
+        "E" : "Previously indicated",
+    },
+    # TimeInForce
+    59: {
+        "0" : "Day",
+        "1" : "GTC - Good Till Cancel",
+        "3" : "IOC - Immediate Or Cancel",
+        "6" : "Good Till Date",
+    },
+    # ExecType
+    150: {
+        "0" : "New",
+        "1" : "Partial fill - deprecated",
+        "2" : "Fill - deprecated",
+        "3" : "Done For Day",
+        "4" : "Canceled",
+        "5" : "Replaced",
+        "6" : "Pending Cancel",
+        "7" : "Stopped",
+        "8" : "Rejected",
+        "A" : "Pending New",
+        "B" : "Calculated",
+        "C" : "Expired",
+        "D" : "Restated",
+        "E" : "Pending Replace",
+        "F" : "Trade - Fill or Partial Fill"
     },
     # QuoteStatus
     297: {
