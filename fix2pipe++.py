@@ -173,41 +173,49 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     else:
         msg_fields.sort(key=tag_key)
 
+    outgoing = False
     if direction == "incoming":
-        print(f"INCOMING             []  <------------ {msg_map.get(35)}")
-        color_str = colors.GRAY_BACK
+        print(colors.PINK + f"INCOMING             []  <------------ {msg_map.get(35)}" + colors.ENDCOLOR)
+        color_str = colors.WHITE
     elif direction == "outgoing":
-        print(f"OUTGOING             []  {msg_map.get(35)} ------------>")
-        color_str = colors.TEAL_BACK
+        outgoing = True
+        print(colors.PINK + f"OUTGOING             []  {msg_map.get(35)} ------------>" + colors.ENDCOLOR)
+        color_str = colors.GRAY_BACK
     else:
         color_str = colors.GRAY
 
     if "D" in msg_map.get(35) or "AB" in msg_map.get(35):
-        color_str = colors.BLUE
+        color_str = colors.BLUE_BACK if outgoing else colors.BLUE
 
     if "8" in msg_map.get(35) and ("F" in msg_map.get(150)
                                    or "1" in msg_map.get(150)
                                    or "2" in msg_map.get(150)):
-        color_str = colors.GREEN
+        color_str = colors.GREEN_BACK if outgoing else colors.GREEN
 
     if "8" in msg_map.get(35) and ("3" in msg_map.get(150)
                                    or "B" in msg_map.get(150)):
-        color_str = colors.YELLOW
+        color_str = colors.YELLOW_BACK if outgoing else colors.YELLOW
 
     if "8" in msg_map.get(35) and "8" in msg_map.get(150):
-        color_str = colors.RED
+        color_str = colors.RED_BACK if outgoing else colors.RED
 
     if "8" in msg_map.get(35) and "4" in msg_map.get(150):
-        color_str = colors.ORANGE
+        color_str = colors.ORANGE_BACK if outgoing else colors.ORANGE
+
+    if "8" in msg_map.get(35) and "5" in msg_map.get(150):
+        color_str = colors.CYAN_BACK if outgoing else colors.CYAN
 
     if "R" in msg_map.get(35):
-        color_str = colors.ORANGE_BACK
+        color_str = colors.YELLOW_BACK if outgoing else colors.YELLOW
 
     if "S" in msg_map.get(35):
-        color_str = colors.MAGENTA_BACK
+        color_str = colors.MAGENTA_BACK if outgoing else colors.MAGENTA
+
+    if "Z" in msg_map.get(35) or "F" in msg_map.get(35):
+        color_str = colors.ORANGE_BACK if outgoing else colors.ORANGE
 
     if "3" in msg_map.get(35) or "AG" in msg_map.get(35) or "Y" in msg_map.get(35):
-        color_str = colors.RED
+        color_str = colors.RED_BACK if outgoing else colors.RED
 
     for key, name, value in msg_fields:
         description = ""
