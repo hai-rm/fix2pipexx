@@ -190,11 +190,18 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
                                    or "2" in msg_map.get(150)):
         color_str = colors.GREEN
 
-    if "R" in msg_map.get(35):
+    if "8" in msg_map.get(35) and ("3" in msg_map.get(150)
+                                   or "B" in msg_map.get(150)):
+        color_str = colors.YELLOW
+
+    if "8" in msg_map.get(35) and "4" in msg_map.get(150):
         color_str = colors.ORANGE
 
+    if "R" in msg_map.get(35):
+        color_str = colors.ORANGE_BACK
+
     if "S" in msg_map.get(35):
-        color_str = colors.MAGENTA
+        color_str = colors.MAGENTA_BACK
 
     if "3" in msg_map.get(35) or "AG" in msg_map.get(35):
         color_str = colors.RED
