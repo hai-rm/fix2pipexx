@@ -202,7 +202,7 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
     fields = msg.split("|")
     for field in fields:
         if len(field) > 0:
-            tag_value = field.split("=")
+            tag_value = field.split("=", 1)
             tag = int(tag_value[0])
             value = tag_value[1].strip(" ,\x01")
             # if direction == "outgoing " and tag in msg_map:
