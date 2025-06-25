@@ -203,7 +203,7 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     if "S" in msg_map.get(35):
         color_str = colors.MAGENTA_BACK
 
-    if "3" in msg_map.get(35) or "AG" in msg_map.get(35):
+    if "3" in msg_map.get(35) or "AG" in msg_map.get(35) or "Y" in msg_map.get(35):
         color_str = colors.RED
 
     for key, name, value in msg_fields:
