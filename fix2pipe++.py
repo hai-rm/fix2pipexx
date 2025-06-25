@@ -259,10 +259,9 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 def parse_line(line, tags_map, only_fix, sort_by):
     line = line.replace("\x01", "|")
     direction_regex = re.search("(incoming|outgoing)", line)
-    direction = direction_regex.groups(
-    )[0] if direction_regex is not None else "unknown"
+    direction = direction_regex.groups()[0] if direction_regex is not None else "unknown"
 
-    result = re.search("(8=FIX.4...9=.*10=.*)", line)
+    result = re.search("(35=.*10=.*)", line)
 
     if not only_fix:
         print(line, end="")

@@ -219,14 +219,16 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 
 def parse_line(line, tags_map, only_fix, sort_by):
     line = line.replace("\x01", "|")
-    result = re.search(".+<.+->.+,.+> (incoming|outgoing): (.*)", line)
+    direction_regex = re.search("(incoming|outgoing)", line)
+    direction = direction_regex.groups()[0] if direction_regex is not None else "unknown"
+
+    result = re.search("(35=.*10=.*)", line)
 
     if not only_fix:
         print(line, end="")
 
     if result:
-        direction = result.groups()[0]
-        msg = result.groups()[1]
+        msg = result.groups()[0]
         parse_fix_msg(msg, tags_map, direction, sort_by)
         if only_fix:
             print("------------------------------------------------------")
