@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import re, sys, argparse
-from util import *
-
 from validate_rfq import *
 
 
@@ -10,7 +8,8 @@ def parse_tags_file(tags_filename):
     tags_map = {}
     tags_file = open(tags_filename, "r")
     tags_file_content = tags_file.read()
-    result = re.search(r"enum class Tag : int \{([\s\S]*?)\};", tags_file_content)
+    result = re.search(r"enum class Tag : int \{([\s\S]*?)\};",
+                       tags_file_content)
     if result:
         for line in result.groups()[0].splitlines():
             line = line.strip()
@@ -37,7 +36,7 @@ def name_key(t):
 
 tag_value_descriptions = {
     # Side
-    54 : {
+    54: {
         "0": "None",
         "1": "Buy",
         "2": "Sell",
@@ -75,76 +74,76 @@ tag_value_descriptions = {
     },
     # OrdStatus
     39: {
-        "0" : "New",
-        "1" : "Partially filled",
-        "2" : "Filled",
-        "3" : "Done for day",
-        "4" : "Canceled",
-        "5" : "Replaced",
-        "6" : "Pending Cancel",
-        "7" : "Stopped",
-        "8" : "Rejected",
-        "9" : "Suspended",
-        "A" : "Pending New",
-        "B" : "Calculated",
-        "C" : "Expired",
-        "D" : "Accepted for bidding",
-        "E" : "Pending Replace",
+        "0": "New",
+        "1": "Partially filled",
+        "2": "Filled",
+        "3": "Done for day",
+        "4": "Canceled",
+        "5": "Replaced",
+        "6": "Pending Cancel",
+        "7": "Stopped",
+        "8": "Rejected",
+        "9": "Suspended",
+        "A": "Pending New",
+        "B": "Calculated",
+        "C": "Expired",
+        "D": "Accepted for bidding",
+        "E": "Pending Replace",
     },
     # OrdType
     40: {
-        "1" : "Market",
-        "2" : "Limit",
-        "3" : "Stop",
-        "4" : "Stop limit",
-        "D" : "Previously quoted",
-        "E" : "Previously indicated",
+        "1": "Market",
+        "2": "Limit",
+        "3": "Stop",
+        "4": "Stop limit",
+        "D": "Previously quoted",
+        "E": "Previously indicated",
     },
     # TimeInForce
     59: {
-        "0" : "Day",
-        "1" : "GTC - Good Till Cancel",
-        "3" : "IOC - Immediate Or Cancel",
-        "6" : "Good Till Date",
+        "0": "Day",
+        "1": "GTC - Good Till Cancel",
+        "3": "IOC - Immediate Or Cancel",
+        "6": "Good Till Date",
     },
     # ExecType
     150: {
-        "0" : "New",
-        "1" : "Partial fill - deprecated",
-        "2" : "Fill - deprecated",
-        "3" : "Done For Day",
-        "4" : "Canceled",
-        "5" : "Replaced",
-        "6" : "Pending Cancel",
-        "7" : "Stopped",
-        "8" : "Rejected",
-        "A" : "Pending New",
-        "B" : "Calculated",
-        "C" : "Expired",
-        "D" : "Restated",
-        "E" : "Pending Replace",
-        "F" : "Trade - Fill or Partial Fill"
+        "0": "New",
+        "1": "Partial fill - deprecated",
+        "2": "Fill - deprecated",
+        "3": "Done For Day",
+        "4": "Canceled",
+        "5": "Replaced",
+        "6": "Pending Cancel",
+        "7": "Stopped",
+        "8": "Rejected",
+        "A": "Pending New",
+        "B": "Calculated",
+        "C": "Expired",
+        "D": "Restated",
+        "E": "Pending Replace",
+        "F": "Trade - Fill or Partial Fill"
     },
     # QuoteStatus
     297: {
-        "0" : "Accepted",
-        "1" : "Canceled for Symbol",
-        "4" : "Canceled All",
-        "5" : "Rejected",
-        "7" : "Expired",
+        "0": "Accepted",
+        "1": "Canceled for Symbol",
+        "4": "Canceled All",
+        "5": "Rejected",
+        "7": "Expired",
     },
     # QuoteCancelType
     298: {
-        "1" : "Cancel for Symbol",
-        "4" : "Cancel All Quotes",
+        "1": "Cancel for Symbol",
+        "4": "Cancel All Quotes",
     },
     # TradSesStatus
     340: {
-        "1" : "Halted",
-        "2" : "Open",
-        "3" : "Closed",
-        "4" : "Pre-Open",
-        "5" : "Pre-Close",
+        "1": "Halted",
+        "2": "Open",
+        "3": "Closed",
+        "4": "Pre-Open",
+        "5": "Pre-Close",
     },
 }
 
@@ -165,8 +164,6 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
             name = tags_map[key]
         msg_fields.append((key, name, value))
 
-    #validate_msg(msg_map, tags_map, direction)
-
     if sort_by == "name" and not tags_map is None:
         msg_fields.sort(key=name_key)
     else:
@@ -183,18 +180,11 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
             value_str = str(value[0])
             description = describe_field(key, value_str)
         else:
-            value_str = '[' + ', '.join(value)  + ']'
+            value_str = '[' + ', '.join(value) + ']'
 
-        output = "{0:6} {1:28} {2} {3}".format(
-            key, name, value_str, description
-        )
+        output = "{0:6} {1:28} {2} {3}".format(key, name, value_str,
+                                               description)
         print(output)
-
-    # TESTS
-    # for key, name, value in msg_fields:
-    #     if name in ["MsgType", "CheckSum", "BeginString", "BodyLength", "MsgSeqNum", "SendingTime", "SenderCompId", "TargetCompId", "TransactTime", "SenderSubId"]:
-    #         continue
-    #     print("BOOST_CHECK_EQUAL(lex.find(Tag::{0}).first, \"{1}\");".format(name, value[0]))
 
 
 def parse_fix_msg(msg, tags_map, direction, sort_by):
@@ -205,11 +195,6 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
             tag_value = field.split("=", 1)
             tag = int(tag_value[0])
             value = tag_value[1].strip(" ,\x01")
-            # if direction == "outgoing " and tag in msg_map:
-            #     tag_name = ""
-            #     if tag in tags_map:
-            #         tag_name = tags_map[tag]
-            #     print_warning("Duplicated tag {0}<{1}>".format(tag_name, tag))
             if not tag in msg_map:
                 msg_map[tag] = []
             msg_map[tag].append(value)
@@ -240,9 +225,10 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("-t", "--tags", help="path to Tag.hpp")
-    parser.add_argument(
-        "-o", "--only-fix", action="store_true", help="only outputs formatted fix"
-    )
+    parser.add_argument("-o",
+                        "--only-fix",
+                        action="store_true",
+                        help="only outputs formatted fix")
     parser.add_argument(
         "-s",
         "--sort-by",

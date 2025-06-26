@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import re, sys, argparse
-from util import *
-
 from validate_rfq import *
 
 
@@ -166,8 +164,6 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
             name = tags_map[key]
         msg_fields.append((key, name, value))
 
-    #validate_msg(msg_map, tags_map, direction)
-
     if sort_by == "name" and not tags_map is None:
         msg_fields.sort(key=name_key)
     else:
@@ -175,11 +171,15 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
 
     outgoing = False
     if direction == "incoming":
-        print(colors.PINK + f"INCOMING             []  <------------ {msg_map.get(35)}" + colors.ENDCOLOR)
+        print(colors.PINK +
+              f"INCOMING             []  <------------ {msg_map.get(35)}" +
+              colors.ENDCOLOR)
         color_str = colors.WHITE
     elif direction == "outgoing":
         outgoing = True
-        print(colors.PINK_BACK + f"OUTGOING             []  {msg_map.get(35)} ------------>" + colors.ENDCOLOR)
+        print(colors.PINK_BACK +
+              f"OUTGOING             []  {msg_map.get(35)} ------------>" +
+              colors.ENDCOLOR)
         color_str = colors.GRAY_BACK
     else:
         color_str = colors.GRAY
@@ -214,7 +214,8 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     if "Z" in msg_map.get(35) or "F" in msg_map.get(35):
         color_str = colors.ORANGE_BACK if outgoing else colors.ORANGE
 
-    if "3" in msg_map.get(35) or "AG" in msg_map.get(35) or "Y" in msg_map.get(35):
+    if ("3" in msg_map.get(35) or "AG" in msg_map.get(35)
+        or "Y" in msg_map.get(35) or "9" in msg_map.get(35)):
         color_str = colors.RED_BACK if outgoing else colors.RED
 
     for key, name, value in msg_fields:
@@ -229,12 +230,6 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
                                                description)
         print_color(color_str, output)
 
-    # TESTS
-    # for key, name, value in msg_fields:
-    #     if name in ["MsgType", "CheckSum", "BeginString", "BodyLength", "MsgSeqNum", "SendingTime", "SenderCompId", "TargetCompId", "TransactTime", "SenderSubId"]:
-    #         continue
-    #     print("BOOST_CHECK_EQUAL(lex.find(Tag::{0}).first, \"{1}\");".format(name, value[0]))
-
 
 def parse_fix_msg(msg, tags_map, direction, sort_by):
     msg_map = {}
@@ -244,11 +239,6 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
             tag_value = field.split("=", 1)
             tag = int(tag_value[0])
             value = tag_value[1].strip(" ,\x01")
-            # if direction == "outgoing " and tag in msg_map:
-            #     tag_name = ""
-            #     if tag in tags_map:
-            #         tag_name = tags_map[tag]
-            #     print_warning("Duplicated tag {0}<{1}>".format(tag_name, tag))
             if not tag in msg_map:
                 msg_map[tag] = []
             msg_map[tag].append(value)
