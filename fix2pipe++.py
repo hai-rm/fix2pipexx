@@ -179,7 +179,7 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
         color_str = colors.WHITE
     elif direction == "outgoing":
         outgoing = True
-        print(colors.PINK + f"OUTGOING             []  {msg_map.get(35)} ------------>" + colors.ENDCOLOR)
+        print(colors.PINK_BACK + f"OUTGOING             []  {msg_map.get(35)} ------------>" + colors.ENDCOLOR)
         color_str = colors.GRAY_BACK
     else:
         color_str = colors.GRAY
