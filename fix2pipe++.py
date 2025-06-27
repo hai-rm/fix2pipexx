@@ -98,6 +98,7 @@ tag_value_descriptions = {
         "4": "Stop limit",
         "D": "Previously quoted",
         "E": "Previously indicated",
+        "F": "Forex Limit - deprecated"
     },
     # TimeInForce
     59: {
@@ -109,7 +110,7 @@ tag_value_descriptions = {
     # ExecType
     150: {
         "0": "New",
-        "1": "Partial fill - deprecated",
+        "1": "Partial Fill - deprecated",
         "2": "Fill - deprecated",
         "3": "Done For Day",
         "4": "Canceled",
