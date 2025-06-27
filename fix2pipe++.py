@@ -199,7 +199,8 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     if "8" in msg_map.get(35) and "8" in msg_map.get(150):
         color_str = colors.RED_BACK if outgoing else colors.RED
 
-    if "8" in msg_map.get(35) and "4" in msg_map.get(150):
+    if "8" in msg_map.get(35) and ("4" in msg_map.get(150)
+                                   or "C" in msg_map.get(150)):
         color_str = colors.ORANGE_BACK if outgoing else colors.ORANGE
 
     if "8" in msg_map.get(35) and "5" in msg_map.get(150):
