@@ -54,7 +54,7 @@ tag_value_descriptions = {
         "D": "New Order Single",
         "AB": "New Order Multileg",
         "F": "Order Cancel Request",
-        "G": "Order Cancel/Repalce Request",
+        "G": "Order Cancel/Replace Request",
         "Q": "Dont Know Trade",
         "R": "Quote Request",
         "S": "Quote",
@@ -185,9 +185,6 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
     else:
         color_str = colors.GRAY
 
-    if "D" in msg_map.get(35) or "AB" in msg_map.get(35):
-        color_str = colors.BLUE_BACK if outgoing else colors.BLUE
-
     if "8" in msg_map.get(35) and ("F" in msg_map.get(150)
                                    or "1" in msg_map.get(150)
                                    or "2" in msg_map.get(150)):
@@ -205,6 +202,12 @@ def print_fix_msg(msg_map, tags_map, direction, sort_by):
         color_str = colors.ORANGE_BACK if outgoing else colors.ORANGE
 
     if "8" in msg_map.get(35) and "5" in msg_map.get(150):
+        color_str = colors.CYAN_BACK if outgoing else colors.CYAN
+
+    if "D" in msg_map.get(35) or "AB" in msg_map.get(35):
+        color_str = colors.BLUE_BACK if outgoing else colors.BLUE
+
+    if "G" in msg_map.get(35):
         color_str = colors.CYAN_BACK if outgoing else colors.CYAN
 
     if "R" in msg_map.get(35):
