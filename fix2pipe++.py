@@ -242,6 +242,9 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
     for field in fields:
         if len(field) > 0:
             tag_value = field.split("=", 1)
+            if len(tag_value) != 2 or not tag_value[0].isdigit():
+                continue
+
             tag = int(tag_value[0])
             value = tag_value[1].strip(" ,\x01")
             if not tag in msg_map:
