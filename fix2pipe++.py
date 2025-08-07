@@ -51,8 +51,13 @@ tag_value_descriptions = {
         "8": "Execution Report",
         "9": "Order Cancel Reject",
         "A": "Logon",
-        "D": "New Order Single",
         "AB": "New Order Multileg",
+        "AD": "Trade Capture Report Request",
+        "AE": "Trade Capture Report",
+        "AI": "Quote Status Report",
+        "AQ": "Trade Capture Report Request Ack",
+        "AR": "Trade Capture Report Ack",
+        "D": "New Order Single",
         "F": "Order Cancel Request",
         "G": "Order Cancel/Replace Request",
         "Q": "Dont Know Trade",
@@ -70,7 +75,6 @@ tag_value_descriptions = {
         "h": "Trading Session Status",
         "i": "Mass Quote",
         "j": "Business Message Reject",
-        "AI": "Quote Status Report",
     },
     # OrdStatus
     39: {
