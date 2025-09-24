@@ -269,6 +269,10 @@ def highlight_patterns(line):
     line = re.sub(r"(,CumCost)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,LastPrice)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
 
+    line = re.sub(r"(ERROR)", f"{colors.RED_BACK}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(WARN)", f"{colors.ORANGE_BACK}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(INFO)", f"{colors.GREEN_BACK}\\1{colors.ENDCOLOR}", line)
+
     return line
 
 
