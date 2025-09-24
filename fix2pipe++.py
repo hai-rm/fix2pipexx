@@ -257,6 +257,20 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 
     print_fix_msg(msg_map, tags_map, direction, sort_by)
 
+def highlight_patterns(line):
+    line = re.sub(r"(,OrderID)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,OrderStatus)", f"{colors.CYAN}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,FixingDate)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,SettlDate)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,LastFwdPoints)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,ExecType)", f"{colors.GREEN}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,QtyType)", f"{colors.MAGENTA}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,CumQty)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,CumCost)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,LastPrice)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
+
+    return line
+
 
 def parse_line(line, tags_map, only_fix, sort_by):
     line = line.replace("\x01", "|")
@@ -266,7 +280,7 @@ def parse_line(line, tags_map, only_fix, sort_by):
     result = re.search("(35=.*10=.*)", line)
 
     if not only_fix:
-        print(line, end="")
+        print(highlight_patterns(line), end="")
 
     if result:
         msg = result.groups()[0]
