@@ -260,6 +260,7 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
 def highlight_patterns(line):
     line = re.sub(r"(,OrderID[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,OrderStatus[^,]*)", f"{colors.CYAN}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,Tenor[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,FixingDate[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,SettlDate[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,LastFwdPoints[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
