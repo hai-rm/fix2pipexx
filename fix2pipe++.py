@@ -266,6 +266,7 @@ def highlight_patterns(line):
     line = re.sub(r"(,LastFwdPoints[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,ExecType[^,]*)", f"{colors.GREEN}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,QtyType[^,]*)", f"{colors.MAGENTA}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(,Side[^,]*)", f"{colors.MAGENTA}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,ResdQty[^,]*)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,CumQty[^,]*)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,CumCost[^,]*)", f"{colors.BLUE}\\1{colors.ENDCOLOR}", line)
