@@ -258,6 +258,7 @@ def parse_fix_msg(msg, tags_map, direction, sort_by):
     print_fix_msg(msg_map, tags_map, direction, sort_by)
 
 def highlight_patterns(line):
+    line = re.sub(r"(,Accnt[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,OrderID[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,OrderStatus[^,]*)", f"{colors.CYAN}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(,Tenor[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
