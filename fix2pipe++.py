@@ -102,7 +102,8 @@ tag_value_descriptions = {
         "4": "Stop limit",
         "D": "Previously quoted",
         "E": "Previously indicated",
-        "F": "Forex Limit - deprecated"
+        "F": "Forex limit - deprecated",
+        "H": "Forex quoted - deprecated"
     },
     # TimeInForce
     59: {
