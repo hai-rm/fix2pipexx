@@ -136,6 +136,7 @@ def highlight_patterns(line):
     line = re.sub(r"((?<=,)Accnt[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)OrderID[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)ClOrderID[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"((?<=,)OrigClOrderID[^,]*)", f"{colors.RED}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)Tenor[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)FixingDate[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)SettlDate[^,]*)", f"{colors.ORANGE}\\1{colors.ENDCOLOR}", line)
@@ -155,6 +156,7 @@ def highlight_patterns(line):
     line = re.sub(r"((?<=,)OrderType[^,]*)", f"{colors.PINK}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"((?<=,)TimeType[^,]*)", f"{colors.PINK}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(sbe.OrderRequest*)", f"{colors.BLUE_BACK}\\1{colors.ENDCOLOR}", line)
+    line = re.sub(r"(sbe.OrderCancelRequest*)", f"{colors.BLUE_BACK}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(sbe.OrderReviseRequest*)", f"{colors.BLUE_BACK}\\1{colors.ENDCOLOR}", line)
     line = re.sub(r"(sbe.ExecReport*)", f"{colors.BLUE_BACK}\\1{colors.ENDCOLOR}", line)
 
