@@ -136,6 +136,7 @@ tag_value_descriptions = {
         "D": "Restated",
         "E": "Pending Replace",
         "F": "Trade - Fill or Partial Fill",
+        "I": "Order Status",
     },
     # QuoteStatus
     297: {
