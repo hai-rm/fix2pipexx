@@ -53,6 +53,7 @@ tag_value_descriptions = {
         "AB": "New Order Multileg",
         "AD": "Trade Capture Report Request",
         "AE": "Trade Capture Report",
+        "AG": "Quote Request Reject",
         "AI": "Quote Status Report",
         "AQ": "Trade Capture Report Request Ack",
         "AR": "Trade Capture Report Ack",
@@ -158,6 +159,13 @@ tag_value_descriptions = {
         "3": "Closed",
         "4": "Pre-Open",
         "5": "Pre-Close",
+    },
+    # QuoteType
+    537: {
+        "0": "Indicative",
+        "1": "Tradeable",
+        "2": "Restricted Tradeable",
+        "3": "Counter",
     },
 }
 
